@@ -1,31 +1,29 @@
-positive = 4
-negative = -3
-float_1 = 3.14
-float_2 = 6.28
-a_sentence = "This is a sentence."
-boolean_1 = True
-boolean_2 = False
-
-#Addition(int)
-
-print(positive + negative)
-
-#Subtraction(int)
-
-print(positive - negative)
+def square(num):
+    
+    return num * num
 
 #Addition(float)
 
-print(float_1 + float_2)
+def float_addition(float_1,float_2):
+    
+    return float_1 + float_2
 
 #Subtraction(float)
 
-print(float_1 - float_2)
+def float_subtraction(float_1,float_2):
+    
+    return float_1 - float_2
 
 #String slicing
+def first_five_characters(string):
+    
+    return string[:5]
 
-print(a_sentence[10::])
+def bool_NAND(bool_1, bool_2):
+    #Not and
+    return not(bool_1 and bool_2)
 
-print(f"If true and false then {boolean_1 and boolean_2}")
 
-print(f"If true or false then {boolean_1 or boolean_2}")
+def bool_XOR(bool_1, bool_2):
+    #bools can't be the same in XOR
+    return bool_1 != bool_2

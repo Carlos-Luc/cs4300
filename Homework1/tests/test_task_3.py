@@ -1,18 +1,11 @@
 from src.task_3 import(sign_check,sum_one_to_hundered,first_ten_primes)
+import pytest
 
-def test_sign_check():
+@pytest.mark.parametrize("number,expected",[(10,"positive"),(1.5,"positive"),(0,"zero"),(0.0,"zero"),(-5,"negative"),(-5.3,"negative")])
 
-    assert sign_check(10) == "positive"
+def test_sign_check(number,expected):
 
-    assert sign_check(1.5) == "positive"
-
-    assert sign_check(0) == "zero"
-
-    assert sign_check(0.0) == "zero"
-
-    assert sign_check(-5) == "negative"
-
-    assert sign_check(-5.3) == "negative"
+    assert sign_check(number) == expected
 
 def test_first_ten_primes(capsys):
 

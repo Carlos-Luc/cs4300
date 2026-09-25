@@ -10,6 +10,8 @@ def test_text_file_word_count():
 
 def test_text_file_word_count_parameters(tmp_path,content,expected_word_count):
 
+   #Create tempory text files for parametrized testing
+
    file_path = tmp_path / "sample.txt"
 
    file_path.write_text(content)

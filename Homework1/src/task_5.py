@@ -1,3 +1,4 @@
+#Creates book list and print first three books of sliced list
 def list_slice():
 
     book_list = [("Grapes of Wrath", "John Steinbeck"),("Red Rising", "Pierce Brown"),("The Count of Monte Cristo", "Alexander Dumas"),("Fahrenheit 451", "Ray Bradbury")]

@@ -25,5 +25,5 @@ def bool_NAND(bool_1, bool_2):
 
 
 def bool_XOR(bool_1, bool_2):
-    #bools can't be the same in XOR
+    #all equal bools are false in XOR
     return bool_1 != bool_2

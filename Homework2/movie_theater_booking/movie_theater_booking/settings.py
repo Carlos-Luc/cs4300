@@ -27,6 +27,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['app-silvermoose5493-28.lab.devedu.io']
 
+CSRF_TRUSTED_ORIGINS = ['https://app-silvermoose5493-28.lab.devedu.io']
 
 # Application definition
 
@@ -37,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'bookings',
+    'bookings.apps.BookingsConfig',
     'rest_framework'
 ]
 

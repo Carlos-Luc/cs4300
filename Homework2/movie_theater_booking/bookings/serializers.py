@@ -21,3 +21,12 @@ class BookingSerializer(serializers.ModelSerializer):
         model = Booking
         fields = ["id", "movie", "seat", "user", "date"]
         read_only_fields = ["user", "date"]
+    
+    def validate_seat(self, value):
+        #Checks if seat has been booked
+        if not value.booking_status:
+        
+            return value
+        #Raises Error when seat is booked
+        else:
+             raise serializers.ValidationError("This seat is already booked")

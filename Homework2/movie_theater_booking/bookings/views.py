@@ -1,15 +1,18 @@
 from django.shortcuts import render
 from rest_framework import viewsets, permissions , mixins
 from rest_framework import serializers
+from rest_framework.response import Response
+from rest_framework.decorators import action
+from .permissions import IsAdminOrReadOnly
 from .serializers import MovieSerializer, SeatSerializer, BookingSerializer
 from .models import Movie, Seat, Booking
 
 
 class MovieViewSet(viewsets.ModelViewSet):
-    '''View set provides CRUD operations on movies'''
+    '''View set provides CRUD operations on movies. Ops only available to admins'''
     queryset = Movie.objects.all()
     serializer_class = MovieSerializer
-    permission_classes = [permissions.IsAdminUser]
+    permission_classes = [IsAdminOrReadOnly]
 
 class SeatViewSet(viewsets.ReadOnlyModelViewSet):
     '''Seat Viewset: give list of all avilable seats'''
@@ -18,7 +21,21 @@ class SeatViewSet(viewsets.ReadOnlyModelViewSet):
 
     def get_queryset(self):
 
-        return Seat.objects.filter(booking_status = False)
+        return Seat.objects.filter(booking_status=False)
+    
+    @action(detail=True, methods=['post'], permission_classes=[permissions.IsAuthenticated])
+    def booking(self, request, *args, **kwargs):
+        '''Books seat for logged in user that is available, must include movie id in the post'''
+        seat = self.get_object()
+        movie = request.data.get('movie')
+        serializer = BookingSerializer(data={"seat": seat.id, "movie": movie})
+        serializer.is_valid(raise_exception=True)
+        serializer.save(user=request.user)
+        seat.booking_status = True
+        seat.save()
+        return Response(serializer.data, status=201)
+
+
 #Custom viewset to only only allow creation, retrevial and listing. Deleting and editing bookings are not available.
 class BookingViewSet(mixins.CreateModelMixin, mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets.GenericViewSet):
     '''
@@ -29,23 +46,16 @@ class BookingViewSet(mixins.CreateModelMixin, mixins.ListModelMixin, mixins.Retr
     serializer_class = BookingSerializer
     permission_classes = [permissions.IsAuthenticated]
 
-    #Overrides get_queryset so that it filters bookings by associated user and returns that list
+   
     def get_queryset(self):
-
+        '''Overrides get_queryset so that it filters bookings by associated user and returns that list'''
         this_user = self.request.user
         return Booking.objects.filter(user=this_user)
-    #Associates Users with bookings
+
     def perform_create(self, serializer):
+        '''Saves the booking for the logged-in user and marks the seat as booked.'''
         seat = serializer.validated_data.get('seat')
-        #Checks if seat is booked then saves a booking for that user and changes seat booking_status to true
-        if not seat.booking_status:
-        
-            serializer.save(user=self.request.user)
-
-            seat.booking_status = True
-
-            seat.save()
-        #Raises Error when seat is booked
-        else:
-             raise serializers.ValidationError("This seat is already booked")
+        serializer.save(user=self.request.user)
+        seat.booking_status = True
+        seat.save()
     

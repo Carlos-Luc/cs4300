@@ -5,7 +5,7 @@ https://movie-theater-booking-ljya.onrender.com
 1. 
 Run 
 ```bash 
-cd cs4300/Homework2/movie_theater_booking         
+cd movie_theater_booking         
 pip install -r requirements.txt
 python3 manage.py migrate
 python3 manage.py createsuperuser

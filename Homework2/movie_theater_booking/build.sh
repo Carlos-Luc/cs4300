@@ -10,3 +10,6 @@ python manage.py collectstatic --no-input
 
 # Apply any outstanding database migrations
 python manage.py migrate
+
+#Creates superuser for first deploy
+python manage.py migrate createsuperuser --no-input || True

@@ -29,6 +29,8 @@ ALLOWED_HOSTS = ['app-silvermoose5493-28.lab.devedu.io']
 
 CSRF_TRUSTED_ORIGINS = ['https://app-silvermoose5493-28.lab.devedu.io']
 
+LOGIN_URL = 'rest_framework:login'
+
 # Application definition
 
 INSTALLED_APPS = [

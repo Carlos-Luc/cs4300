@@ -1,0 +1,25 @@
+{% extends 'bookings/base.html' %}
+{% block title %} Your Booking History {% endblock %}
+{% block content %}
+<h2> Your Bookings </h2>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">Movie</th>
+      <th scope="col">Seat</th>
+      <th scope="col">Date of Booking</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for booking in bookings %}
+        <tr>
+        <th scope="row">{{ booking.movie.title }}</th>
+        <td>{{ booking.seat.number }}</td>
+        <td>{{ booking.date |date:"M d Y" }}</td>
+        </tr>
+    {% empty %}
+        <td colspan="3"> No Bookings Yet </td>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends 'bookings/base.html' %}
+{% block title %} Book a Seat {% endblock %}
+{% block content %}
+<h1> {{ movies.title }} </h1>
+<h4>Description:</h4>
+<p> {{ movies.description }} </p>
+<h4>Release Date:</h4>
+<p> {{ movies.release_date|date:"M d Y" }}</p>
+<h4>Runtime:</h4>
+<p> {{ movies.runtime }} minutes </p>
+<h4>Available Seats:</h4>
+<form action="{{ url }}" method="POST">
+     {% csrf_token %}
+    <select class="form-select" name="seat_selection">
+    <option selected>Choose a seat</option>
+    {% for seat in available_seats %}
+        <option value="{{ seat.id }}">{{ seat.number }}</option>
+    {% empty %}
+        <option value="" disable>No Seats</option>
+    {% endfor %}
+    </select>
+    <button type="submit" class="btn btn-primary">Book</button>
+</form>
+
+{% endblock %}

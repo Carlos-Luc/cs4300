@@ -12,4 +12,4 @@ python manage.py collectstatic --no-input
 python manage.py migrate
 
 #Creates superuser for first deploy
-python manage.py migrate createsuperuser --no-input || true
+python manage.py createsuperuser --no-input || true

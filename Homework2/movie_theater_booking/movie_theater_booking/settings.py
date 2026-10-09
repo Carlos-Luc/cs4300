@@ -25,9 +25,9 @@ SECRET_KEY = 'django-insecure-4@%26w_ow!5%(dkbjq03z7lgf!=o@7zbvgnrtexfgyhxkjoifd
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['app-silvermoose5493-28.lab.devedu.io']
+ALLOWED_HOSTS = ['app-silvermoose5493-28.lab.devedu.io', '.onrender.com']
 
-CSRF_TRUSTED_ORIGINS = ['https://app-silvermoose5493-28.lab.devedu.io']
+CSRF_TRUSTED_ORIGINS = ['https://app-silvermoose5493-28.lab.devedu.io','https://movie-theater-booking-ljya.onrender.com']
 
 LOGIN_URL = 'rest_framework:login'
 
